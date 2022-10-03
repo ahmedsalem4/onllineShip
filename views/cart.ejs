@@ -1,0 +1,46 @@
+
+<%-include("components/header.ejs")%>
+<%-include("components/navbar.ejs")%>
+
+<div class="container">
+  <% if(mongErr){%>
+    <p class="alert alert-danger"><%=mongErr.msg%></p>
+  <%}%>
+    <% if(items.length === 0 ){%>
+        <p class="alert alert-warning">
+            Soory nott iems to show 
+        </p>
+    <%}else{%>
+
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">On</th>
+                <th scope="col">Produc-Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(let i = 0 ; i < items.length ; i++) {%>
+                <tr>
+                    <th scope="row"><%= i+1%></th>
+                    <td><%= items[i].name%></td> 
+                    <td><%= items[i].price%></td>
+                    <td><form method="POST">
+                        <input type="text" name="amount" value="<%= items[i].amount%>" style="width: 60px;">
+                        <td><%= items[i].price * items[i].amount  %></td>
+                        <td>
+                            <input type="hidden" name="cartId" value="<%= items[i]._id%>">
+                            <input type="submit" value="Save" formaction="/cart/save" class="btn btn-success">
+                            <input type="submit" value="Delete" formaction="/cart/delete" class="btn btn-danger">
+                        </td>
+                    </form></td>
+                  </tr>
+              <%}%>
+            </tbody>
+          </table>
+    <%}%>
+</div>
+<%-include("components/footer.ejs")%>

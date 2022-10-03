@@ -1,0 +1,19 @@
+
+<%-include("components/header.ejs")%>
+<%-include("components/navbar.ejs")%>
+
+    <div class="container">
+        <% if(mongErr){%>
+            <p class="alert alert-danger"><%=mongErr.msg%></p>
+          <%}%>
+         <form action="/admin/add" method="POST" enctype="multipart/form-data">
+                <input type="text" name="name" placeholder="name" class="form-control">
+                <input type="number" name="price" placeholder="price" class="form-control">
+                <input type="text" name="category" placeholder="category" class="form-control">
+                <input type="text" name="description" placeholder="description" class="form-control">
+                <input type="file" name="img" class="form-control">
+                <input type="submit" value="add-Prodct">
+        </form>
+    </div>
+
+    <%-include("components/footer.ejs")%>

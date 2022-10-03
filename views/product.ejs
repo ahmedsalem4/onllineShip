@@ -1,0 +1,37 @@
+
+<%-include("components/header.ejs")%>
+<%-include("components/navbar.ejs")%>
+
+<% if(mongErr){%>
+  <p class="alert alert-danger"><%=mongErr.msg%></p>
+<%}%>
+<% if(product !== null){%>
+ <div class="row">
+    <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
+        <div class="card" style="width: 18rem;">
+            <img src="/<%= product.img%>" class="card-img-top" alt="<%= product.img%>">
+            <div class="card-body">
+             <h5 class="card-title"><a href="/product/<%= product._id%>">
+                  <%= product.name%>
+                </a>
+              <h5 class="btn btn-primary mb-2"><%= product.price%></h5>
+              <form action="/cart" method="POST">
+                <input type="number" name="amount" class="form-control">
+                <input type="hidden" name="name" value="<%=product.name%>">
+                <input type="hidden" name="price" value="<%=product.price%>">
+                <input type="hidden" name="redirectTo" value="/product/<%=product._id%>">
+                <input type="hidden" name="productId" value="<%=product._id%>">
+                <input type="submit" value="add to cart">
+            </form>
+              <p class="card-text"><%=product.description%></p>
+              <a href="#" class="btn btn-primary"><%=product.category%></a>
+            </div>
+          </div>
+    </div>
+</div>
+<% } else{%>
+  <div class="alert alert-danger">
+    Soort Not Have products
+  </div>
+  <%}%>
+<%-include("components/footer.ejs")%>

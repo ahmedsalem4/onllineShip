@@ -1,0 +1,34 @@
+<%-include("components/header.ejs")%>
+<%-include("components/navbar.ejs")%>
+<div class="container text-center">
+    <h1>CreateAccount</h1>
+    <form action="/signup" method="POST"  >
+        <% let userNameerr = validationerr.find(err => err.param ==="username") %>
+        <%if(userNameerr){%>
+            <p class="alert alert-danger"><%=userNameerr.msg %></p>
+        <%}%>
+        <input type="text" name="username" placeholder="username" class="form-control"/>
+        <% let useremailerr = validationerr.find(err => err.param ==="email") %>
+        <%if(useremailerr){%>
+            <p class="alert alert-danger"><%=useremailerr.msg %></p>
+        <%}%>
+        <input type="text" name="email" placeholder="email" class="form-control"/>
+        <% let confirmpassword = validationerr.find(err => err.param ==="confirmpassword") %>
+        <%if(confirmpassword){%>
+            <p class="alert alert-danger"><%=confirmpassword.msg %></p>
+        <%}%>
+        <input type="password" name="password" placeholder="password"class="form-control"/>
+        <input type="password" name="confirmpassword" placeholder="confirm password"class="form-control"/>
+        <input type="submit" value="CreateAccount" class="btn btn-primary"/>
+    </form>
+    <% for(let erroresy of validationerr){%>
+        <br/>
+        <p class="alert alert-danger"><%= erroresy.msg%></p>
+    <%}%>
+    <br/>
+    <div>
+        already have account ? <a href="/login">login</a>
+    </div>
+</div>
+
+<%-include("components/footer.ejs")%> 
